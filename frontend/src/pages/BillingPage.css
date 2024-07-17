@@ -3,30 +3,83 @@
   color: black;
 }
 
-.header, .customer-info, .tax-invoice, .huid-charges, .urd, .controls, .totals {
-  margin: 20px;
+.customer-info, .tax-invoice, .huid-charges, .urd, .controls, .totals {
+  margin: 10px;
 }
-
+.header {
+  display: flex;
+  margin: 20px;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically (optional) */
+}
 .logo img {
-  max-width: 100%;
-  height: auto;
+  width: auto;
+  height: 2in;
+}
+.customer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 20px; /* Add space between customer info and the rest of the form */
 }
 
 .info-row {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
   margin-bottom: 10px;
+  width: 100%;
+  justify-content: center;
 }
 
 .info-row label {
-  margin-right: 5px;
+  width: 100px; /* Set a fixed width for labels to align inputs */
+  margin-right: 10px;
+  text-align: right; /* Align the label text to the right */
+  justify-content: center;
 }
 
 .info-row input {
   flex: 1;
-  max-width: 300px; /* Make input boxes smaller */
+  max-width: 300px;
+  justify-content: center;
 }
 
+/*
+.info-row {
+  display: flex;
+  align-items: center;justify-content: space-between;
+  gap: 2px; 
+  margin-bottom: 10px;
+}
+
+.info-row label {
+  margin-right: 1px;
+}
+
+.info-row input {
+  flex: 1;
+  max-width: 300px; 
+}
+*/
+/*
+.info-row {
+  display: flex;
+  justify-content: flex-start;
+  gap: 2px;  Small gap between elements 
+  margin-bottom: 10px;
+}
+
+.info-row label {
+  margin-right: 1px;  Very small margin between label and input 
+}
+
+.info-row input {
+  flex: 1;
+  max-width: 300px;
+}
+*/
 .tax-invoice h2 {
   text-align: center;
 }
@@ -90,4 +143,10 @@
 
 .totals-row input {
   flex: 1;
+}
+
+@media print {
+  .black-button, .controls {
+    display: none;
+  }
 }

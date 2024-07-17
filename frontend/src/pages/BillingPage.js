@@ -2,11 +2,20 @@ import React, { useState } from 'react';
 import './BillingPage.css'; // Make sure to create and import this CSS file for styling
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import logo from './logo.png';
 
 const BillingPage = () => {
   const [rows, setRows] = useState([]);
   const [huidCharges, setHuidCharges] = useState(51);
   const [deleteMode, setDeleteMode] = useState(false);
+
+  // State variables for input fields
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
+  const [contactNo, setContactNo] = useState('');
+  const [invoiceNo, setInvoiceNo] = useState('');
+  const [date, setDate] = useState('');
+  const [gstin, setGstin] = useState('');
 
   const handleAddRow = () => {
     if (rows.length >= 10) {
@@ -36,9 +45,14 @@ const BillingPage = () => {
 
   const handleNew = () => {
     setRows([]);
-    // Clear other input fields as needed
+    setName('');
+    setAddress('');
+    setContactNo('');
+    setInvoiceNo('');
+    setDate('');
+    setGstin('');
   };
-
+  
   const handlePrint = () => {
     const printContent = document.getElementById('print-section');
     html2canvas(printContent).then(canvas => {
@@ -49,7 +63,7 @@ const BillingPage = () => {
       const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
 
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('output/invoice.pdf'); // Saves the PDF in the output folder
+      pdf.save('invoice.pdf');
 
       // Printing the content
       const printWindow = window.open('', '', 'width=800,height=600');
@@ -67,40 +81,40 @@ const BillingPage = () => {
 
   return (
     <div className="billing-page">
-      <div className="header">
-        <div className="logo">
-          <img src="./logo.png" alt="Shop Logo" /> {/* Update the path to your logo */}
-        </div>
-      </div>
-
-      <div className="customer-info">
-        <div className="info-row">
-          <label>Name:</label>
-          <input type="text" />
-          <label>Invoice No.:</label>
-          <input type="text" />
-        </div>
-        <div className="info-row">
-          <label>Address:</label>
-          <input type="text" />
-          <label>Date:</label>
-          <input type="date" />
-        </div>
-        <div className="info-row">
-          <label>Contact No.:</label>
-          <input type="text" />
-          <label>Gstin:</label>
-          <input type="text" />
-        </div>
-      </div>
-
       <div id="print-section">
+        <div className="header">
+          <div className="logo">
+            <img src={logo} alt="Shop Logo" /> {/* Update the path to your logo */}
+          </div>
+        </div>
+
+        <div className="customer-info">
+          <div className="info-row">
+            <label>Name:</label>
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <label>Invoice No:</label>
+            <input type="text" value={invoiceNo} onChange={(e) => setInvoiceNo(e.target.value)} />
+          </div>
+          <div className="info-row">
+            <label>Address:</label>
+            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+            <label>Date:</label>
+            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+          </div>
+          <div className="info-row">
+            <label>Contact No.:</label>
+            <input type="text" value={contactNo} onChange={(e) => setContactNo(e.target.value)} />
+            <label>Gstin:</label>
+            <input type="text"  value={gstin} onChange={(e) => setGstin(e.target.value)} />
+          </div>
+        </div>
+
         <div className="tax-invoice">
           <h2>Tax Invoice</h2>
           <table>
             <thead>
               <tr>
-                <th style={{ backgroundColor: 'lightpurple' }}>Barcode ID <span className="optional">(Optional)</span></th>
+                <th style={{ backgroundColor: 'lightpurple' }}>Barcode ID</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>Item Name</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>Qty</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>HSN</th>
@@ -143,6 +157,25 @@ const BillingPage = () => {
             </tbody>
           </table>
         </div>
+
+        <div className="totals">
+          <div className="totals-row">
+            <label>Total amount:</label>
+            <input type="text" readOnly />
+          </div>
+          <div className="totals-row">
+            <label>CGST 1.5%:</label>
+            <input type="text" readOnly />
+          </div>
+          <div className="totals-row">
+            <label>SGST 1.5%:</label>
+            <input type="text" readOnly />
+          </div>
+          <div className="totals-row">
+            <label>Total Amount:</label>
+            <input type="text" readOnly />
+          </div>
+        </div>
       </div>
 
       <button className="black-button" onClick={handleAddRow}>Add</button>
@@ -152,25 +185,6 @@ const BillingPage = () => {
       <div className="controls">
         <button className="black-button" onClick={handleNew}>New</button>
         <button className="black-button" onClick={handlePrint}>Print</button>
-      </div>
-
-      <div className="totals">
-        <div className="totals-row">
-          <label>Total amount:</label>
-          <input type="text" readOnly />
-        </div>
-        <div className="totals-row">
-          <label>CGST 1.5%:</label>
-          <input type="text" readOnly />
-        </div>
-        <div className="totals-row">
-          <label>SGST 1.5%:</label>
-          <input type="text" readOnly />
-        </div>
-        <div className="totals-row">
-          <label>Total Amount:</label>
-          <input type="text" readOnly />
-        </div>
       </div>
     </div>
   );
