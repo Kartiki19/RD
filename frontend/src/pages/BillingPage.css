@@ -1,0 +1,93 @@
+.billing-page {
+  font-family: Arial, sans-serif;
+  color: black;
+}
+
+.header, .customer-info, .tax-invoice, .huid-charges, .urd, .controls, .totals {
+  margin: 20px;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.info-row label {
+  margin-right: 5px;
+}
+
+.info-row input {
+  flex: 1;
+  max-width: 300px; /* Make input boxes smaller */
+}
+
+.tax-invoice h2 {
+  text-align: center;
+}
+
+.tax-invoice table, .urd table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tax-invoice th, .urd th, .tax-invoice td, .urd td {
+  border: 1px solid black;
+  padding: 5px;
+  text-align: left;
+}
+
+.tax-invoice th {
+  background-color: lightpurple; /* Light purple background for table headers */
+}
+
+.tax-invoice input[type="text"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.optional {
+  font-size: 12px;
+  color: red;
+}
+
+.black-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.totals {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+}
+
+.totals-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.totals-row label {
+  margin-right: 5px;
+}
+
+.totals-row input {
+  flex: 1;
+}
