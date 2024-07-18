@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './BillingPage.css'; // Make sure to create and import this CSS file for styling
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
@@ -16,6 +16,12 @@ const BillingPage = () => {
   const [invoiceNo, setInvoiceNo] = useState('');
   const [date, setDate] = useState('');
   const [gstin, setGstin] = useState('');
+
+  // State variables for totals
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [cgst, setCgst] = useState(0);
+  const [sgst, setSgst] = useState(0);
+  const [finalAmount, setFinalAmount] = useState(0);
 
   const handleAddRow = () => {
     if (rows.length >= 10) {
@@ -79,6 +85,22 @@ const BillingPage = () => {
     });
   };
 
+  const calculateTotals = () => {
+    const total = rows.reduce((acc, row) => acc + parseFloat(row.amount || 0), 0) + huidCharges;
+    const cgstValue = (total * 0.015).toFixed(2);
+    const sgstValue = (total * 0.015).toFixed(2);
+    const final = (parseFloat(total) + parseFloat(cgstValue) + parseFloat(sgstValue)).toFixed(2);
+
+    setTotalAmount(total.toFixed(2));
+    setCgst(cgstValue);
+    setSgst(sgstValue);
+    setFinalAmount(final);
+  };
+
+  useEffect(() => {
+    calculateTotals();
+  }, [rows, huidCharges]);
+
   return (
     <div className="billing-page">
       <div id="print-section">
@@ -104,8 +126,8 @@ const BillingPage = () => {
           <div className="info-row">
             <label>Contact No.:</label>
             <input type="text" value={contactNo} onChange={(e) => setContactNo(e.target.value)} />
-            <label>Gstin:</label>
-            <input type="text"  value={gstin} onChange={(e) => setGstin(e.target.value)} />
+            <label>GSTIN:</label>
+            <input type="text" value={gstin} onChange={(e) => setGstin(e.target.value)} />
           </div>
         </div>
 
@@ -119,9 +141,9 @@ const BillingPage = () => {
                 <th style={{ backgroundColor: 'lightpurple' }}>Qty</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>HSN</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>Purity</th>
-                <th style={{ backgroundColor: 'lightpurple' }}>Gross wt</th>
-                <th style={{ backgroundColor: 'lightpurple' }}>Net wt</th>
-                <th style={{ backgroundColor: 'lightpurple' }}>Rate per gram</th>
+                <th style={{ backgroundColor: 'lightpurple' }}>Gross Wt</th>
+                <th style={{ backgroundColor: 'lightpurple' }}>Net Wt</th>
+                <th style={{ backgroundColor: 'lightpurple' }}>Rate/gm</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>Fixed</th>
                 <th style={{ backgroundColor: 'lightpurple' }}>Amount</th>
               </tr>
@@ -160,20 +182,20 @@ const BillingPage = () => {
 
         <div className="totals">
           <div className="totals-row">
-            <label>Total amount:</label>
-            <input type="text" readOnly />
+            <label>Total Amount:</label>
+            <input type="text" readOnly value={totalAmount} />
           </div>
           <div className="totals-row">
             <label>CGST 1.5%:</label>
-            <input type="text" readOnly />
+            <input type="text" readOnly value={cgst} />
           </div>
           <div className="totals-row">
             <label>SGST 1.5%:</label>
-            <input type="text" readOnly />
+            <input type="text" readOnly value={sgst} />
           </div>
           <div className="totals-row">
-            <label>Total Amount:</label>
-            <input type="text" readOnly />
+            <label>Final Amount:</label>
+            <input type="text" readOnly value={finalAmount} />
           </div>
         </div>
       </div>
