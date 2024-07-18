@@ -60,30 +60,14 @@ const BillingPage = () => {
   };
   
   const handlePrint = () => {
-    const printContent = document.getElementById('print-section');
-    html2canvas(printContent).then(canvas => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    window.print();
+    // Wait for the print dialog to close, then create and save the PDF
+  setTimeout(() => {
+    window.print();
 
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      pdf.save('invoice.pdf');
-
-      // Printing the content
-      const printWindow = window.open('', '', 'width=800,height=600');
-      printWindow.document.write('<html><head><title>Invoice</title>');
-      printWindow.document.write('</head><body>');
-      printWindow.document.write('<div>' + printContent.innerHTML + '</div>');
-      printWindow.document.write('</body></html>');
-      printWindow.document.close();
-      setTimeout(() => {
-        printWindow.print();
-        printWindow.close();
-      }, 1000); // Delay for print dialog to open
-    });
+  }, 1000); // Delay to allow print dialog to close
   };
+  
 
   const calculateTotals = () => {
     const total = rows.reduce((acc, row) => acc + parseFloat(row.amount || 0), 0) + huidCharges;
@@ -176,6 +160,7 @@ const BillingPage = () => {
                 <td><input type="text" readOnly value={huidCharges} /></td>
                 <td><input type="text" readOnly value={huidCharges} /></td>
               </tr>
+              
             </tbody>
           </table>
         </div>

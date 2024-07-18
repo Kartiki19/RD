@@ -46,40 +46,6 @@
   justify-content: center;
 }
 
-/*
-.info-row {
-  display: flex;
-  align-items: center;justify-content: space-between;
-  gap: 2px; 
-  margin-bottom: 10px;
-}
-
-.info-row label {
-  margin-right: 1px;
-}
-
-.info-row input {
-  flex: 1;
-  max-width: 300px; 
-}
-*/
-/*
-.info-row {
-  display: flex;
-  justify-content: flex-start;
-  gap: 2px;  Small gap between elements 
-  margin-bottom: 10px;
-}
-
-.info-row label {
-  margin-right: 1px;  Very small margin between label and input 
-}
-
-.info-row input {
-  flex: 1;
-  max-width: 300px;
-}
-*/
 .tax-invoice h2 {
   text-align: center;
 }
@@ -124,29 +90,48 @@
   margin-top: 20px;
 }
 
+/* Screen styles */
 .totals {
-  position: absolute;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 20px;
   bottom: 20px;
   right: 20px;
   width: 300px;
 }
 
 .totals-row {
-  display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin-bottom: 10px;
 }
 
 .totals-row label {
   margin-right: 5px;
+  text-align: right;
 }
 
 .totals-row input {
   flex: 1;
+  text-align: right;
 }
 
 @media print {
   .black-button, .controls {
     display: none;
+  }
+  
+  .totals {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin: 0;
   }
 }
