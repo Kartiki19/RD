@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
 //import { useHistory } from 'react-router-dom';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   //const history = useHistory();
 
   const handleSubmit = async (event) => {
@@ -19,6 +21,7 @@ const LoginPage = () => {
     const data = await response.json();
     if (response.status === 200) {  
       alert(data.message);
+      navigate('/billing');
       // Redirect to BillingPage or another authenticated page
     } else {
       alert(data.message);
@@ -47,8 +50,14 @@ const LoginPage = () => {
             required 
           />
         </div>
-        <button type="submit" className="login-button">Login</button>
+        {/* Register Button */}
+        
+      <button type="submit" className="login-button">Login</button>
+      <h4>Not registered ?</h4>
+      
+      <button type="submit" className="login-button" onClick={() => navigate("/register")}>Register</button>
       </form>
+      
     </div>
   );
 };

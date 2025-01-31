@@ -5,6 +5,7 @@ import BillingPage from './pages/BillingPage';
 import InventoryCheckPage from './pages/InventoryCheckPage';
 import POSPage from './pages/POSPage';
 import DashboardPage from './pages/DashboardPage';
+import RegisterPage from './pages/RegistrationPage';
 import './App.css';
 
 
@@ -18,6 +19,7 @@ const App = () => {
           <Route path="/billing" element={<BillingPage />} />
           <Route path="/inventory-check" element={<InventoryCheckPage />} />
           <Route path="/pos" element={<POSPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/" element={<LoginPage />} />
         </Routes>
       </div>

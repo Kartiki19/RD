@@ -1,0 +1,141 @@
+.billing-page {
+    font-family: Arial, sans-serif;
+    color: black;
+  }
+  
+  .customer-info, .tax-invoice, .huid-charges, .urd, .controls, .totals {
+    margin: 10px;
+  }
+  
+  .header {
+    display: flex;
+    margin: 20px;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically (optional) */
+  }
+  
+  .logo img {
+    width: auto;
+    height: 2in;
+  }
+  
+  .customer-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px; /* Add space between customer info and the rest of the form */
+  }
+  
+  .info-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .info-row label {
+    width: 100px; /* Set a fixed width for labels to align inputs */
+    margin-right: 10px;
+    text-align: right; /* Align the label text to the right */
+    justify-content: center;
+  }
+  
+  .info-row input {
+    flex: 1;
+    max-width: 300px;
+    justify-content: center;
+  }
+  
+  .tax-invoice h2 {
+    text-align: center;
+  }
+  
+  .tax-invoice table, .urd table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .tax-invoice th, .urd th, .tax-invoice td, .urd td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: left;
+  }
+  
+  .tax-invoice th {
+    background-color: lightpurple; /* Light purple background for table headers */
+  }
+  
+  .tax-invoice input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .optional {
+    font-size: 12px;
+    color: red;
+  }
+  
+  .black-button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Screen styles */
+  .totals {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-bottom: 20px;
+    bottom: 20px;
+    right: 20px;
+    width: 300px;
+  }
+  
+  .totals-row {
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  .totals-row label {
+    margin-right: 5px;
+    text-align: right;
+  }
+  
+  .totals-row input {
+    flex: 1;
+    text-align: right;
+  }
+  
+  @media print {
+    .black-button, .controls {
+      display: none;
+    }
+  
+    .totals {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: flex-end;
+      margin: 0;
+    }
+  }
+  

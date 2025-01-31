@@ -50,3 +50,22 @@ def billing():
     data = request.json
     # Process billing data
     return jsonify({"message": "Billing processed"}), 200
+
+@main.route('/register', methods=['POST'])
+def register():
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+
+    # Check if the username already exists
+    users = read_users()
+    if username in users:
+        return jsonify({"message": "User already exists"}), 400
+
+    # Save the new user to the CSV file
+    with open('users.csv', mode='a', newline='') as csvfile:
+        fieldnames = ['username', 'password']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writerow({'username': username, 'password': password})
+
+    return jsonify({"message": "Registration successful"}), 201
